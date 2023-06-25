@@ -12,9 +12,9 @@ class LoginView(generics.CreateAPIView):
 
     def create(self, request):
         user = request.data['nome']
-        password = request.data['email']
+        password = request.data['senha']
     
-        if (self.queryset.filter(nome=user, email=password).first() is not None):
+        if (self.queryset.filter(nome=user, senha=password).first() is not None):
             return Response(status=status.HTTP_200_OK)
         
         else:

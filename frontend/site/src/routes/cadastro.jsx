@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 
-function Loginpage() {
+function Cadastropage() {
   const [nome, setNome] = useState('');
   const [senha, setSenha] = useState('');
   const [error, setError] = useState('');
@@ -12,13 +12,13 @@ function Loginpage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8000/site/login/', {
+      const response = await axios.post('http://localhost:8000/site/user/', {
         nome,
         senha,
       });
 
-      if (response.status === 200) {
-        navigateTo('/view')
+      if (response.status === 201) {
+        navigateTo('/')
       }
     } catch (error) {
       setError('Usuário ou senha incorretos!')
@@ -28,7 +28,7 @@ function Loginpage() {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Cadastro</h2>
       <form onSubmit={handleSubmit} method='POST'>
         <div>
           <label>Usuário:</label><br></br>
@@ -46,13 +46,11 @@ function Loginpage() {
             onChange={(senha) => setSenha(senha.target.value)}
           />
         </div><br></br>
-        <button type="submit">Logar</button><br></br>
+        <button type="submit">Cadastrar</button><br></br>
         <p style={{color: 'red'}}>{error}</p>
-
-        <button onClick={() => navigateTo('/cadastro')}>Cadastre-se</button>
       </form>
     </div>
   );
 }
 
-export default Loginpage;
+export default Cadastropage;

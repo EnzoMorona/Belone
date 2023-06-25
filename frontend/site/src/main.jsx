@@ -5,8 +5,8 @@ import './index.css';
 
 
 import Loginpage from './routes/login.jsx';
-
-
+import UserList from './routes/view.jsx';
+import Cadastropage from './routes/cadastro.jsx';
 
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 
@@ -21,7 +21,12 @@ const router = createBrowserRouter([
 
       {
         path: '/view',
-        element: <tela/>,
+        element: <UserList/>,
+      },
+      
+      {
+        path: '/cadastro',
+        element: <Cadastropage/>,
       }
     ]
   }
