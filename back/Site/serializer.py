@@ -8,8 +8,6 @@ class UserSerializer(serializers.ModelSerializer):
         
 
 class PostSerializer(serializers.ModelSerializer):
-    nome = UserSerializer(many=True)
-
     class Meta:
         model = Post
         fields = ('id','titulo','desc','nome')

@@ -13,7 +13,7 @@ class LoginView(generics.CreateAPIView):
     def create(self, request):
         nome = request.data['nome']
         senha = request.data['senha']
-        var = User.objects.filter(nome = nome).values_list('nome')
+        var = User.objects.filter(nome = nome).values_list('id')
 
     
         if (self.queryset.filter(nome = nome, senha = senha).first() is not None):

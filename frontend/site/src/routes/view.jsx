@@ -1,14 +1,21 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import name from './login.jsx';
+import {name} from './login.jsx';
 
 function PostList() {
   const [posts, setPosts] = useState([]);
   const [titulo, setTitulo] = useState('');
   const [desc, setDesc] = useState('');
-  const nome = {name};
+  const nome = name;
+  const [user, setUser] = useState([])
+  var n;
 
   useEffect(() => {
+    axios.get(`http://localhost:8000/site/user/${nome}`)
+        .then((response) => {
+          setUser(response.data.nome)
+          console.log(response.data.nome)
+        }) 
     mostrarUsuarios();
   }, []);
 
@@ -30,10 +37,13 @@ function PostList() {
         desc,
         nome,
       });
-
+      console.log(nome);
       if (response.status === 201) {
         console.log('Cadastro realizado com sucesso!');
-        mostrarUsuarios(); 
+
+        mostrarUsuarios();
+        
+        
       } } catch (error) {
       console.error(error);
     }
@@ -76,10 +86,9 @@ function PostList() {
         <tbody>
           {posts.map((post) => (
             <tr key={post.id}>
-              <td>{post.id}</td>
               <td>{post.titulo}</td>
               <td>{post.desc}</td>
-              <td>{post.nome}</td>
+              <td>{user}</td>
             </tr>
           ))}
         </tbody>
