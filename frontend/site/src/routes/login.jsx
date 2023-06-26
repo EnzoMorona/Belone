@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+export var name
 
 function Loginpage() {
   const [nome, setNome] = useState('');
   const [senha, setSenha] = useState('');
   const [error, setError] = useState('');
   const navigateTo = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,9 +18,11 @@ function Loginpage() {
         nome,
         senha,
       });
-
+      const data = await response.data[0]
       if (response.status === 200) {
+        name = data
         navigateTo('/view')
+        console.log(name)
       }
     } catch (error) {
       setError('Usuário ou senha incorretos!')

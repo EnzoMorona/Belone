@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from Site.views import LoginView, UserView
+from Site.views import LoginView, UserView, PostView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'user', UserView)
+router.register(r'post', PostView)
 
 
 urlpatterns = [

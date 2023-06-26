@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from Site.models import User
-from Site.serializer import UserSerializer
+from Site.models import User, Post
+from Site.serializer import UserSerializer, PostSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -11,18 +11,26 @@ class LoginView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
     def create(self, request):
-        user = request.data['nome']
-        password = request.data['senha']
+        nome = request.data['nome']
+        senha = request.data['senha']
+        var = User.objects.filter(nome = nome).values_list('nome')
+
     
-        if (self.queryset.filter(nome=user, senha=password).first() is not None):
-            return Response(status=status.HTTP_200_OK)
+        if (self.queryset.filter(nome = nome, senha = senha).first() is not None):
+            return Response(status=status.HTTP_200_OK, data={var[0][0]})
         
         else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_401_UNAUTHORIZED, data={'erro':'Nome ou senha erradas'})
         
 class UserView(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+       
+class PostView(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+        
 
 
     
